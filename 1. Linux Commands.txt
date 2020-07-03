@@ -1,0 +1,94 @@
+cat file
+–
+Prints the content of the file
+paste file1 file2
+-
+Join files horizontally
+head –n file
+-
+Displays the first n lines of the file
+tail –n file
+-
+Displays the last n lines of file
+rm –i file
+-
+Removes a file after getting confirmation from
+user
+rm –r directory
+-
+Removes a directory recursively
+cp file1 file2
+-
+Copy file1 to file2
+mv file1 file2
+-
+Move or Rename file1 to file2
+mkdir dir
+-
+Creates a new directory
+rmdir
+-
+Removes an empty directory
+ls
+-
+List the files in current directory
+ls ~
+-
+List the files in home directory
+ls –a
+-
+List the files in current directory including
+hidden files
+ls –l
+-
+List long listing of files in current directory
+ls –ls
+-
+List long listing of files in current directory sorted
+by file size
+pwd
+-
+Displays present working directory
+PROCESS COMMANDS
+ps
+-
+jobs -
+kill pid
+bg -
+-
+Displays all current active processes in the
+system
+Lists the processes running in the background
+and foreground
+Kills a process with process id ‘pid’
+Lists all the background process
+SYSTEM INFORMATION COMMANDS
+who
+-
+Shows the users who are currently logged in
+whoami
+-
+Prints the login information of current user
+uptime
+-
+Displays how long the system has been running
+man command
+-
+Shows the manual for the command
+whereis command
+-
+Displays the location of binary file ,source and
+manual page files of the command
+whatis command
+-
+Displays one-line manual page descriptions of
+the command
+date
+–
+Shows current date and time
+cal month year
+–
+Shows calendar for the specified month
+df
+–
+Shows disk space usage

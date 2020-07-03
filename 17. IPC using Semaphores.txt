@@ -1,0 +1,37 @@
+#include<stdlib.h>
+#include<sys/sem.h>
+#include<stdio.h>
+int main()
+{
+ int semid, pid, val;
+ struct sembuf sop;
+ semid = semget((key_t)123,1,IPC_CREAT|0666);
+ semctl(semid,0,SETVAL,5);
+ val = semctl(semid,0,SETVAL,5);
+ val = semctl(semid,0,GETVAL,0);
+ printf(" No. of resources on the semaphore is %d \n", val);
+ pid = fork();
+ if(pid<0)
+ {
+  printf("ERROR");
+ }
+ else if(pid==0)
+ {
+  sop.sem_num=0;
+  sop.sem_op=-2;
+  sop.sem_flg=SEM_UNDO;
+  semop(semid,&sop,1);
+  sleep(2);
+  printf(" Child quit \n");
+ }
+ else
+ {
+  sleep(2);
+  val=semctl(semid,0,GETVAL,0);
+  printf("No. of resources on semaphore is %d \n",val);
+  sleep(3);
+  val=semctl(semid,0,GETVAL,0);
+  printf(" No. of resources on semaphore is %d \n", val);
+  printf(" Parent quits \n");
+ }
+}

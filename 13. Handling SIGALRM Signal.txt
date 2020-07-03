@@ -1,0 +1,25 @@
+ALARM
+-----------------------
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<signal.h>
+void sh_alarm(int signum);
+int main()
+{
+ char name[30];
+ if(signal(SIGALRM, sh_alarm)==SIG_ERR)
+ {
+  printf("ERROR \n");
+  exit(0);
+ }
+ printf(" Enter User Login Name : \n ");
+ alarm(5);
+ scanf("%s", name);
+ printf("Welcome %s ",name);
+}
+void sh_alarm(int signum)
+{
+ printf("TIMEOUT");
+ exit(0);
+}

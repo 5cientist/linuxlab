@@ -1,0 +1,15 @@
+echo "Enter value for a : "
+read a
+echo "Enter value for b : "
+read b
+echo "Enter value for c : "
+read c
+if [ $a -gt $b -a $a -gt $c ]
+then 
+echo"$a is greater."
+elif [ $b -gt $c -a $b -gt $a ]
+then 
+echo"$b is greater."
+else 
+echo"$c is greater."
+fi

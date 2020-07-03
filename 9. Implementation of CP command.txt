@@ -1,0 +1,40 @@
+IMPLEMENTATION OF CP COMMAND
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+int main()
+{
+char sname[30], dname[30], buffer[30];
+int fd1, fd2, c, n;
+printf(" Enter source file : ");
+scanf("%s", sname);
+fd1 = open( sname, O_RDONLY);
+if(fd1<0)
+{
+printf(" it doesnot exist ");
+exit(0);
+}
+printf(" Enter the destination file: ");
+scanf("%s",dname);
+fd2 = open(dname, O_WRONLY | O_CREAT | O_EXCL , 777);
+if(fd2<0)
+{
+printf(" Destination file exists ");
+printf(" Overwrite ( Yes - 1 / No - 0 )");
+scanf("%d",&c);
+if(c==0)
+{
+printf("Operation Cancelled");
+exit(0);
+}
+fd2 = open( dname, O_CREAT | O_TRUNC | O_WRONLY , 777);
+}
+while((n = read(fd1,buffer,30)) > 0)
+   write(fd2,buffer,n);
+printf(" File Copied Successfully ");
+close(fd1);
+close(fd2);
+}
+

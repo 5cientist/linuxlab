@@ -1,0 +1,30 @@
+echo " Enter 1st number : "
+read a
+echo " Enter 2nd number : "
+read b
+while true
+do
+echo " 1. Addition "
+echo " 2. Subtraction "
+echo " 3. Multiplication "
+echo " 4. Division "
+echo " 5. Exit "
+echo " enter your choice "
+read ch
+case $ch in
+1) c=` expr $a + $b `
+echo " Sum : $c "
+;;
+2) c=` expr $a - $b `
+echo " Difference : $c "
+;;
+3) c=` expr $a \* $b `
+echo " Product : $c "
+;;
+4) c=` expr $a / $b `
+echo " Quotient : $c "
+;;
+5) exit ;;
+*) echo " Invalid Choice "
+esac
+done

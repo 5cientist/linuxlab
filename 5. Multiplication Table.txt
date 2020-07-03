@@ -1,0 +1,6 @@
+echo " Enter n "
+read n
+for ((i=1 ; i<=12 ; i++))
+do
+echo " $n * $i = ` expr $n \* $i `"
+done

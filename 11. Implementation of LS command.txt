@@ -1,0 +1,34 @@
+IMPLEMENTATION OF LS COMMAND
+
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/types.h>
+#include<dirent.h>
+int main(int argc, char * argv[])
+{
+DIR *dir;
+struct dirent *dp;
+char path[3];
+if( argc ==1)
+ strcpy(path,"." );
+else
+ strcpy(path, argv[1]);
+dir = opendir(path);
+if(dir==NULL)
+{
+printf(" Cant open %s ", path);
+exit(0);
+}
+while((dp = readdir(dir))!=NULL)
+{
+if(dp->d_name[0]!='.')
+ printf("%s \t", dp->d_name);
+}
+closedir(dir);
+return 0;
+}
+[MCA18@localhost skexercise]$
+else
+ printf("File renamed successfully");
+}

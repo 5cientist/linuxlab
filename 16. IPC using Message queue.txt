@@ -1,0 +1,39 @@
+MESSAGE QUEUE
+-----------------------------------------------------------------
+#include<stdio.h>
+#include<sys/msg.h>
+#include<string.h>
+int main()
+{
+ int mgid, pid, len;
+ struct
+ {
+  long mtype;
+  char mtext[80];
+ }
+ sbuffer, rbuffer;
+ mgid = msgget((key_t) 111, IPC_CREAT | 0666);
+ pid = fork();
+ if(pid<0)
+  printf(" Error \n");
+ else if(pid>0)
+ {
+  //code for parent ..........
+  printf("Enter the Text : \n");
+  scanf("%s", sbuffer.mtext);
+  sbuffer.mtype=1;
+  len = strlen(sbuffer.mtext);
+  if(msgsnd(mgid,&sbuffer,len,0)==-1)
+   printf("ERROR");
+  else
+   printf(" Parent sends %s successfully \n", sbuffer.mtext);
+ }
+ else
+ {
+ //CODE FOR CHILD .....
+ if(msgrcv(mgid, &rbuffer, 80,0,0)==-1)
+  printf("Error");
+ else
+  printf("Child recieves %s \n", rbuffer.mtext);
+ }
+}

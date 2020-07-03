@@ -1,0 +1,56 @@
+//Shared Memory – Sever Program
+
+#include <stdlib.h>
+#include <sys/shm.h>
+#include <stdio.h>
+main()
+{
+    char c;
+    int shmid;
+    char *shm, *s;
+    if ((shmid = shmget((key_t)2525, 27, IPC_CREAT | 0666)) < 0)
+     {
+        printf("Error");
+        exit(1);
+     }
+    if ((shm = shmat(shmid, NULL, 0)) == NULL)
+    {
+        printf("Error");
+        exit(0);
+    }
+    s=shm;
+//Server writes a to z in the shared memory segment
+   for(c='a';c<='z';c++)
+     *s++=c;
+   *s='\0';
+//Server waits till client reads and changes first letter to ‘*’   
+while(*shm!='*')
+        sleep(1);
+ }
+-------------------------------------------------------------------------
+//Shared Memory – Client Program
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/shm.h>
+int main()
+{
+  int shmid;
+  char *shm,*s;
+  if((shmid=shmget((key_t)2525,27,0666))<0)
+  {
+    printf("error");
+    exit(0);
+  }
+  if((shm=shmat(shmid,NULL,0))==NULL)
+  {
+    printf("Error");
+    exit(0);
+  }
+//Client reads the shared memory
+  for(s=shm;*s!='\0';s++)
+    putchar(*s);
+  putchar('\n');
+//Client changes the first letter to ‘*’
+  *shm='*';
+}

@@ -1,0 +1,36 @@
+IMPLEMENTATION OF MV COMMAND
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+main ( int argc , char * argv[] )
+{
+int c;
+if(argc<3)
+ {
+ printf("Invalid usage ");
+ printf("\n Invalid Usage :  ./a.out <oldname> <newname> ");
+ exit(0);
+ }
+if(open(argv[1],O_RDONLY)<0)
+ {
+ printf(" \n Source File doesnot exist " );
+ exit(0);
+ }
+if(open(argv[2],O_RDONLY)>0)
+ {
+ printf("\n Destination File Exist ");
+ printf( " Overwrite [ Yes - 1 / No - 0] " );
+ scanf("%d",&c);
+ if(c==0)
+  {
+  printf("Operator Cancelled");
+  exit(0);
+  }
+ }
+if(rename(argv[1],argv[2])<0)
+ printf("Error");
+else
+ printf("File renamed successfully");
+}

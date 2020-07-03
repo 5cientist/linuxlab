@@ -1,0 +1,26 @@
+
+
+while true
+do
+echo " 1. List all uers who are logged in "
+echo " 2. display date "
+echo " 3. display all files "
+echo " 4. Display current directory "
+echo " 5. Exit "
+echo " enter your choice "
+read C
+case $C in
+1) who
+;;
+2) date
+;;
+3) ls
+;;
+4) pwd
+;;
+5) exit ;;
+*) echo " Invalid Choice "
+esac
+echo " Press any key to continue "
+read Key
+done

@@ -1,0 +1,37 @@
+PIPES
+----------------------------------------
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+int main()
+{
+ int fd[2],pid,n;
+ char buf[30];
+ if(pipe(fd)<0)
+ {
+  printf("error");
+  exit(0);
+ }
+ pid = fork();
+ if(pid<0)
+ {
+  printf("Error");
+  exit(0);
+ }
+ else if(pid>0)
+ {
+  printf("Enter he text to be transmitted : ");
+  scanf("%s", buf);
+  n=strlen(buf);
+  close(fd[0]);
+  write(fd[1],buf,n);
+  printf("Message transmitted to child = %s \n",buf);
+ }
+ else
+ {
+  close(fd[1]);
+  read(fd[0],buf,30);
+  printf("Message recieved byu parent : %s \n", buf);
+ }
+}

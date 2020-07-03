@@ -1,0 +1,23 @@
+﻿#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+int main()
+{
+int fd;
+char src[20];
+printf("enter the file name");
+scanf("%s",src);
+fd=open(src,O_RDONLY);
+if(fd<0)
+{
+printf("file cannot be opened");
+exit(0);
+}
+else
+{
+int size=lseek(fd,0,SEEK_END);
+printf("file size is %d\n",size);
+}
+return(0);
+}

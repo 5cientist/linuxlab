@@ -1,0 +1,90 @@
+UDP SERVER
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<strings.h>
+
+void error(char* msg)
+{
+  perror(msg);
+  exit(0);
+}
+
+int main(int argc,char* argv[])
+{
+   int sockfd,n,portno,clilen;
+   struct sockaddr_in seraddr,cliaddr;
+   char buffer[256];
+
+   if(argc<2)
+   {
+       printf("No port number given\n");
+       exit(0);
+   }
+
+   portno=atoi(argv[1]);
+
+   bzero(&seraddr,sizeof(seraddr));
+   seraddr.sin_family=AF_INET;
+   seraddr.sin_addr.s_addr=INADDR_ANY;
+   seraddr.sin_port=htons(portno);
+
+   sockfd=socket(AF_INET,SOCK_DGRAM,0);
+   if(sockfd<0)
+      error("Error in Creating socket");
+   bind(sockfd,(struct sockaddr*)&seraddr,sizeof(seraddr));
+clilen=sizeof(cliaddr);
+  n=recvfrom(sockfd,buffer,256,0,(struct sockaddr*)&cliaddr,&clilen);
+   if(n==0) error("Error in reading");
+   buffer[n]='\0';
+   printf("Message received from server - %s",buffer);
+   close(sockfd);
+ }
+---------------------------------------------------------------------------------------------
+UDP CLIENT
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<strings.h>
+#include<string.h>
+
+void error(char* msg)
+{
+  perror(msg);
+  exit(0);
+}
+
+int main(int argc,char* argv[])
+{
+   int sockfd,n,portno;
+   struct sockaddr_in seraddr;
+   char buffer[256];
+
+   if(argc<3)
+   {
+       printf("No IP address & Port No given\n");
+       exit(0);
+   }
+
+   portno=atoi(argv[2]);
+
+   bzero(&seraddr,sizeof(seraddr));
+   seraddr.sin_family=AF_INET;
+   inet_pton(AF_INET,argv[1],&seraddr.sin_addr);
+   seraddr.sin_port=htons(portno);
+
+   sockfd=socket(AF_INET,SOCK_DGRAM,0);
+   if(sockfd<0)
+      error("Error in Creating socket");
+   bzero(buffer,256);
+   printf("Enter message for client :");
+   fgets(buffer,256,stdin);
+   n=sendto(sockfd,buffer,strlen(buffer),0,(struct sockaddr*)&seraddr, sizeof(seraddr));
+   if(n==0) error("Error in writing");
+   printf("Message send to client - %s",buffer);
+   close(sockfd);
+ }

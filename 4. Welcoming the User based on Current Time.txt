@@ -1,0 +1,13 @@
+# WELCOMING THE USER BASED ON CURRENT TIME
+SOURCE CODE :
+t=`date +%H`
+if [ $t -lt 12 ]
+then
+mesg="Good morning $LOGNAME, Have anice day!"
+elif [ $t -gt 12 -a $t -le 18 ]
+then mesg="Good afternoon $LOGNAME"
+elif [ $t -gt 16 -a $t -le 18 ]
+then
+mesg="Good evening $LOGNAME"
+fi
+echo "$mesg"

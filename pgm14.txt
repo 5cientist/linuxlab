@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<signal.h>
+void sh_sig(int signum);
+int main()
+{
+if(signal(SIGINT,sh_sig)==SIG_ERR)
+{
+printf("error\n");
+exit(0);
+}
+if(signal(SIGQUIT,sh_sig)==SIG_ERR)
+{
+printf("error\n");
+exit(0);
+}
+if(signal(SIGTSTP,sh_sig)==SIG_ERR)
+{
+printf("error\n");
+exit(0);
+}
+for(;;)
+pause();
+}
+void sh_sig(int signum)
+{
+switch(signum)
+{
+case SIGINT:
+printf("ctrl c is pressed\n");
+signal(SIGINT,SIG_DFL);
+break;
+case SIGQUIT:
+printf("ctrl+\\is pressed\n");
+signal(SIGQUIT,SIG_DFL);
+break;
+case SIGTSTP:
+printf("ctrl+z is pressed\n");
+signal(SIGTSTP,SIG_DFL);
+break;
+}
+}
